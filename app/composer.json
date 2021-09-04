@@ -1,0 +1,17 @@
+{
+    "name": "psychob/checker",
+    "type": "project",
+    "require": {
+        "php": "^7.4",
+        "beluga-php/docker-php": "^2.0",
+        "consolidation/log": "^2.0",
+        "jane-php/open-api-runtime": "4.2",
+        "monolog/monolog": "^2.3",
+        "symfony/var-dumper": "^5.3"
+    },
+    "license": "MPL-2.0",
+    "minimum-stability": "stable",
+    "config": {
+        "sort-packages": true
+    }
+}

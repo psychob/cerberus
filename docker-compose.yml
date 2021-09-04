@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  load_balancer:
+    image: haproxy:2.4.3-alpine3.14
+    networks:
+      - cerberus-network
+    volumes:
+      - haproxy-config:/usr/local/etc/haproxy/:ro
+      - lets-encrypt-keys:/opt/keys
+    restart: 'no'
+    depends_on:
+      - app_maintainer
+    labels:
+      - "cerberus.load_balancer_node=true"
+
+  app_maintainer:
+    build: app
+    volumes:
+      - haproxy-config:/opt/haproxy_config:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  cerberus-network:
+    external: true
+
+volumes:
+  lets-encrypt-keys:
+  haproxy-config:
