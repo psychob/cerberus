@@ -6,4 +6,4 @@ echo 'initialize haproxy script'
 php /opt/checker/haproxy.php
 
 echo 'start crond'
-exec crond -f
+exec crond -f -L /dev/stdout
