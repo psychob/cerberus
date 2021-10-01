@@ -112,7 +112,9 @@ CONFIG
 
     $cfg =<<<HAPROXY_CFG
 global
+    log stdout format raw local0 
 defaults
+    log global
     timeout client 30s
     timeout server 30s
     timeout connect 30s
