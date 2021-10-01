@@ -13,6 +13,9 @@ services:
       - app_maintainer
     labels:
       - "cerberus.load_balancer_node=true"
+    ports:
+      - 80
+      - 443
 
   app_maintainer:
     build: app

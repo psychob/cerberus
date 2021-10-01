@@ -121,8 +121,12 @@ frontend default_frontend
     bind :80
 ${acl}
 ${use_backend}
+    default_backend internal_cerberus_response
     
 ${haProxyConfig}
+
+backend internal_cerberus_response:
+    http-request return status 503 content-type "text/plain" string "FUN"
 HAPROXY_CFG;
 
     if (file_get_contents('/opt/haproxy_config/haproxy.cfg') !== $cfg) {
