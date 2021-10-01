@@ -111,8 +111,11 @@ CONFIG
     }
 
     $cfg =<<<HAPROXY_CFG
+# configuration generated with version: 1
+
 global
     log stdout format raw local0 
+
 defaults
     log global
     timeout client 30s
@@ -121,6 +124,7 @@ defaults
 
 frontend default_frontend
     bind :80
+    bind :443
 ${acl}
 ${use_backend}
     default_backend internal_cerberus_response
@@ -128,15 +132,14 @@ ${use_backend}
 ${haProxyConfig}
 
 backend internal_cerberus_response
-    mode http
-    http-request return status 503 content-type "text/plain" string "FUN"
+    tcp-request content reject
 
 
 HAPROXY_CFG;
 
     if (file_get_contents('/opt/haproxy_config/haproxy.cfg') !== $cfg) {
         $logger->notice('new config forced');
-        $logger->notice($cfg);
+        var_dump($cfg);
 
         file_put_contents('/opt/haproxy_config/haproxy.cfg', $cfg);
         $docker->containerRestart($loadBalancer->getId());
