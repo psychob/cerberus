@@ -127,7 +127,7 @@ ${use_backend}
     
 ${haProxyConfig}
 
-backend internal_cerberus_response:
+backend internal_cerberus_response
     mode http
     http-request return status 503 content-type "text/plain" string "FUN"
 
@@ -136,6 +136,7 @@ HAPROXY_CFG;
 
     if (file_get_contents('/opt/haproxy_config/haproxy.cfg') !== $cfg) {
         $logger->notice('new config forced');
+        $logger->notice($cfg);
 
         file_put_contents('/opt/haproxy_config/haproxy.cfg', $cfg);
         $docker->containerRestart($loadBalancer->getId());
