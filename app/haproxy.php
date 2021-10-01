@@ -126,6 +126,7 @@ ${use_backend}
 ${haProxyConfig}
 
 backend internal_cerberus_response:
+    mode http
     http-request return status 503 content-type "text/plain" string "FUN"
 
 
